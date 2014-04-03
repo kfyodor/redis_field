@@ -1,7 +1,7 @@
 require_relative './spec_helper.rb'
 
 describe RedisField do
-  describe RedisField::Adapters::ActiveRecord do
+  describe RedisField::ActiveRecord do
    TestUser.has_redis_fields :test_field1, :test_field2
    TestUser.has_redis_field :test_field3
 
