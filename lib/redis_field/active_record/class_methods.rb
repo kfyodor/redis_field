@@ -3,6 +3,8 @@ require 'redis_field/dirty_field_set'
 module RedisField
   module ActiveRecord
     module ClassMethods
+      @_redis_fields_callbacks_initted = false
+
       def redis_fields
         @redis_fields ||= DirtyFieldSet.new
       end
@@ -10,23 +12,36 @@ module RedisField
       def has_redis_fields(*field_names)
         redis_fields.add(*field_names)
 
-        after_save       :sync_redis_fields!
-        after_initialize :get_redis_fields
-        
-        init_accessors
-      end
+        init_redis_field_callbacks
+        init_redis_field_accessors
+      end 
       alias_method :has_redis_field, :has_redis_fields
 
-      def init_accessors
-        redis_fields.changes.each do |field_name|
-          v = "#{field_name}_redis_value"
+      private
 
-          class_eval { attr_accessor v }
-
-          alias_method "#{field_name}", v
-          alias_method "#{field_name}=", "#{v}="
+      def init_redis_field_callbacks
+        unless @_redis_fields_callbacks_initted
+          class_eval do
+            after_save       :sync_redis_fields!
+            after_initialize :get_redis_fields
+          end
+          @_redis_fields_callbacks_initted = true
         end
       end
+
+      def init_redis_field_accessors
+        redis_fields.changes.each do |field_name|
+          method_name = :"#{field_name}_redis_value"
+
+          class_eval do 
+            attr_accessor method_name
+          end
+
+          alias_method :"#{field_name}", method_name
+          alias_method :"#{field_name}=", :"#{method_name}="
+        end
+      end
+
     end
   end
 end
