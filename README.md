@@ -6,7 +6,7 @@ Great for caches, API responses etc.
 
 ## Installation
 
-You will need ActiveRecord 3.2+ (oops, gotta test it).
+You will need ActiveRecord (>= 3.2).
 
 Add this line to your application's Gemfile:
 
@@ -20,6 +20,27 @@ And then execute:
 
 
 ## Usage
+
+### 0. Configuration
+
+##### Path prefix
+A custom key prefix in Redis (*ar_redis_field* is default)
+```ruby
+  RedisField::Base.path_prefix = 'my_custom_prefix'
+```
+
+##### Redis
+Redis.new is default
+```ruby
+  RedisField::Base.redis = Redis.new(:url => "redis://:p4ssw0rd@10.0.1.1:6380/15")
+```
+
+##### Env
+Your app's environment. It checks *ENV['RAILS_ENV']* by default. If Rails env is not specified, default env is *development*
+
+```ruby
+  RedisField::Base.env = "staging"
+```
 
 ### 1. Specify field names in your model
 
