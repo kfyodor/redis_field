@@ -3,7 +3,6 @@ require 'redis_field/dirty_field_set'
 module RedisField
   module ActiveRecord
     module ClassMethods
-      @_redis_fields_callbacks_initted = false
 
       def redis_fields
         @redis_fields ||= DirtyFieldSet.new
