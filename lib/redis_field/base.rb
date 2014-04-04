@@ -1,7 +1,7 @@
 module RedisField
   class Base
-    cattr_accessor :redis, :path_prefix, :env
-    attr_writer    :model_id
+    class_attribute :redis, :path_prefix, :env
+    attr_writer     :model_id
 
     # TODO: move to config class
     class << self
