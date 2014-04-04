@@ -15,7 +15,7 @@ module RedisField
 
       def env
         @@env ||= ENV['RAILS_ENV'] || "development"
-      end
+      end      
     end
 
     def initialize(object, field_name)

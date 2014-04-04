@@ -6,7 +6,7 @@ describe RedisField do
    TestUser.has_redis_field :test_field3
 
     def get_from_redis(id, key)
-      data = Redis::Namespace.new("ar_redis_field:test:test_user:#{id}", redis: $redis)[key]
+      data = Redis::Namespace.new("ar_redis_field:test:test_user:#{id}", redis: RedisField::Base.redis)[key]
       Marshal.load data if data
     end
 
@@ -19,9 +19,15 @@ describe RedisField do
 
     it 'klass has redis fields' do
       expect(
-        klass.instance_variable_get('@redis_fields')
+        klass.instance_variable_get('@redis_fields').field_names
       ).to eq([:test_field1, :test_field2, :test_field3])
     end
+
+    it 'klass\' redis fields are an instance of DirtyFieldSet' do
+      expect(
+        klass.instance_variable_get('@redis_fields')
+      ).to be_instance_of(RedisField::DirtyFieldSet)
+    end 
 
     it { should respond_to :test_field1 }
     it { should respond_to :test_field2 }
