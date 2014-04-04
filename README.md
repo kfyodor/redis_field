@@ -6,12 +6,12 @@ Great for caches, API responses etc.
 
 ## Installation
 
-You will need ActiveRecord 3.0+ (oops, gotta test it).
+You will need ActiveRecord 3.2+ (oops, gotta test it).
 
 Add this line to your application's Gemfile:
 
 ```ruby
-  gem 'redis_field', github: 'konukhov/redis_field'
+  gem 'redis_field'
 ```
 
 And then execute:
@@ -54,6 +54,16 @@ And then execute:
 **NB** This library is not an ORM for Redis, so it simply marshalls data before storing to Redis. There's no types coercion or anything like that.
 
 More docs and features soon. :heart:
+
+## Testing
+
+Just run
+
+```
+$ rake spec
+```
+
+See [Appraisal](https://github.com/thoughtbot/appraisal) for testing against different ActiveRecord versions.
 
 ## Contributing
 

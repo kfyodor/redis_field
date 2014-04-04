@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Theodore Konukhov"]
   spec.email         = ["komolov.f@gmail.com"]
   spec.summary       = %q{Redis attributes in ActiveRecord models}
-  spec.description   = %q{This gem allows you to easily use redis to store data as regular ActiveRecord attributes}
-  spec.homepage      = ""
+  spec.description   = %q{This gem allows you to easily use Redis to store data as regular ActiveRecord attributes}
+  spec.homepage      = "http://theodore.io"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
