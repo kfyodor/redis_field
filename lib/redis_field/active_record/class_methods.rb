@@ -22,6 +22,7 @@ module RedisField
         unless @_redis_fields_callbacks_initted
           class_eval do
             after_save       :sync_redis_fields!
+            after_create     :sync_redis_fields!
             after_initialize :get_redis_fields
           end
           @_redis_fields_callbacks_initted = true

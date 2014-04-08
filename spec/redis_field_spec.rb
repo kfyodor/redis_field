@@ -46,13 +46,19 @@ describe RedisField do
 
     it 'runs save callbacks' do
       subject.run_callbacks(:save) do
-        subject.should_receive :sync_redis_fields!
+        subject.should_receive(:sync_redis_fields!).once
+      end
+    end
+
+    it 'runs create callbacks' do
+      subject.run_callbacks(:create) do
+        subject.should_receive(:sync_redis_fields!).once
       end
     end
 
     it 'runs initialize callbacks' do
       subject.run_callbacks(:initialize) do
-        subject.should_receive :get_redis_fields
+        subject.should_receive(:get_redis_fields).once
       end
     end
 
